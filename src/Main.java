@@ -1,8 +1,7 @@
 import Bridge.*;
 import Builder.*;
-import Facade.StoreFacade;
+import Facade.PizzaStoreFacade;
 import ObserverPublisher.CustomerSubscriber;
-import ObserverPublisher.IPublisher;
 import ObserverPublisher.ISubscriber;
 import ObserverPublisher.PromotionPublisher;
 
@@ -14,8 +13,8 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         Scanner sc = new Scanner(System.in);
         //Open the store with *Facade Pattern*
-        StoreFacade storeFacade = new StoreFacade(); // We instantiate the storeFacade, first.
-        storeFacade.openStore(); //storeFacade will handle coupling with other class so main class will have loose coupling with classes (lighting, cleaning etc.)
+        PizzaStoreFacade pizzaStoreFacade = new PizzaStoreFacade(); // We instantiate the storeFacade, first.
+        pizzaStoreFacade.openStore(); //storeFacade will handle coupling with other class so main class will have loose coupling with classes (lighting, cleaning etc.)
 
         //Subscription and User Management with *Publisher Pattern*
         System.out.println(
@@ -145,5 +144,11 @@ public class Main {
         System.out.print("Total Cost --> For Pizza " + pizza.getPrice() + " TL Surcharge: "+fulfillment.calculateFulfillmentCost() + " TL = ");
         pizza.setPrice(pizza.getPrice() + fulfillment.calculateFulfillmentCost());
         System.out.println(pizza.getPrice() + " TL");
+        System.out.println("Do you wanna know how your pizza got prepared?");
+        System.out.println("We are clean and transparent: press enter and let's start!!!");
+        // This uses the Mementos stored during the build to show the "Story"
+        pizzaOrderDirector.showTransparencyProcess(pizza);
+        System.out.println("Thank you! Yine Bekleriz<3");
+        pizzaStoreFacade.closeStore();
     }
 }

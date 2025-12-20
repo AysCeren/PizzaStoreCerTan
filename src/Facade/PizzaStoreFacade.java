@@ -4,11 +4,8 @@ import Facade.Subsystem.CleaningSystem;
 import Facade.Subsystem.InventorySystem;
 import Facade.Subsystem.LightingSystem;
 import Facade.Subsystem.PersonnelManagerSystem;
-import ObserverPublisher.CustomerSubscriber;
-import ObserverPublisher.ISubscriber;
-import ObserverPublisher.PromotionPublisher;
 
-public class StoreFacade {
+public class PizzaStoreFacade {
         private LightingSystem lighting = new LightingSystem();
         private InventorySystem inventory = new InventorySystem();
         private PersonnelManagerSystem personnel = new PersonnelManagerSystem();

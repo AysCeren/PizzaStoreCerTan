@@ -3,7 +3,7 @@ package Builder;
 import java.util.List;
 
 public interface PizzaBuilder {
-    void setPrice(double price);
+    void  setPrice(double price);
     void prepareBase() throws InterruptedException;
     void addSauce(String sauce) throws InterruptedException;
     void addCheese(String cheese) throws InterruptedException;

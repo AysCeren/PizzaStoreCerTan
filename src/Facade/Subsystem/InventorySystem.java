@@ -2,7 +2,7 @@ package Facade.Subsystem;
 
 public class InventorySystem {
     public void countSubstances() throws InterruptedException {
-        System.out.println("[Inventory] Counting flour and cheese...");
+        System.out.println("[Inventory] Checking inventory...");
         Thread.sleep(1000);
     }
     public void checkStock() throws InterruptedException {
