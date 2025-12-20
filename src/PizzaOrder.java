@@ -5,6 +5,7 @@ public class PizzaOrder {
     private String sauce;
     private String cheese;
     private List<String> toppings;
+    private int price;
     String currentStepName;
 
     public CrustType getCrustType() {
