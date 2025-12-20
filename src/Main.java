@@ -1,7 +1,5 @@
-import Builder.PizzaBuilder;
-import Builder.PizzaOrderDirector;
-import Builder.StuffedCrustPizzaBuilder;
-import Builder.ThinCrustPizzaBuilder;
+import Bridge.*;
+import Builder.*;
 import Facade.StoreFacade;
 import ObserverPublisher.CustomerSubscriber;
 import ObserverPublisher.IPublisher;
@@ -59,6 +57,35 @@ public class Main {
         }
         publisher.publish("CerTan Pizza: 20% Discount on all thin crust pizzas today!");
         Thread.sleep(1000);
+        //Check the deliveryService and deliveryFulfillment
+        System.out.println("\n--- 🚚 CER-TAN DELIVERY CONFIGURATION ---");
+        // 1. Choose Delivery Method (The Implementation)
+        System.out.println("Step 1: How would you like to receive your pizza?");
+        System.out.println(" [1] Self-Service (Pickup)");
+        System.out.println(" [2] Courier Delivery");
+        System.out.print("Selection: ");
+        int serviceChoice = sc.nextInt();
+        DeliveryService service = (serviceChoice == 2) ? new CourierDeliveryService() : new SelfServiceDeliveryService();
+        // 2. Choose Fulfillment Type (The Abstraction)
+        Thread.sleep(1000);
+        System.out.println("\nStep 2: Choose your fulfillment speed:");
+        System.out.println(" [1] Standard (No extra fee)");
+        System.out.println(" [2] Express (+20 TL fee - Priority Oven Access!)");
+        System.out.print("Selection: ");
+        int fulfillmentChoice = sc.nextInt();
+        DeliveryFulfillment fulfillment;
+        if (fulfillmentChoice == 2) {
+            fulfillment = new ExpressFulfillment(service);
+        } else {
+            fulfillment = new StandardFulfillment(service);
+        }
+        // 3. Fancy Confirmation Output
+        System.out.println("\n-------------------------------------------");
+        System.out.println("✨ FULFILLMENT SECURED ✨");
+        System.out.println("Mode:    " + fulfillment.getFullDescription());
+        System.out.println("Surcharge: " + fulfillment.calculateFulfillmentCost() + " TL");
+        System.out.println("-------------------------------------------\n");
+        Thread.sleep(2000);
         //Take Order and Build the Pizza
         int pizzaNumber;
         int crustNumber;
@@ -74,14 +101,17 @@ public class Main {
                         "\t- Sauce:    Tomato Sauce\n" +
                         "\t- Cheese:   Mozzarella\n" +
                         "\t- Toppings: Tomato, Basil\n\n" +
+                        "\t- Price: 250 TL\n\n" +
                         "2. BACON PIZZA\n" +
                         "\t- Sauce:    Ranch Sauce\n" +
                         "\t- Cheese:   Cheddar\n" +
                         "\t- Toppings: Bacon, Tomato, Roquette, Corn, Olive\n\n" +
+                        "\t- Price: 350 TL\n\n" +
                         "3. TUNA FISH PIZZA\n" +
                         "\t- Sauce:    Tomato Sauce\n" +
                         "\t- Cheese:   Parmesan\n" +
                         "\t- Toppings: Tuna, Tomato, Roquette, Corn, Mushroom\n\n" +
+                        "\t- Price: 325 TL\n\n" +
                         "--------------------------------------------\n" +
                         "Enter choice (1-3): "
         );
@@ -100,7 +130,7 @@ public class Main {
         }else{
             System.out.println("Wrong choice. Try again.");
         }
-        switch(crustNumber) {
+        switch(pizzaNumber) {
             case 1:
                 pizzaOrderDirector.makeMargarita(pizzaBuilder);
                 break;
@@ -111,5 +141,9 @@ public class Main {
                 pizzaOrderDirector.makeBaconPizza(pizzaBuilder);
                 break;
         }
+        PizzaOrder pizza = pizzaBuilder.getResult();
+        System.out.print("Total Cost --> For Pizza " + pizza.getPrice() + " TL Surcharge: "+fulfillment.calculateFulfillmentCost() + " TL = ");
+        pizza.setPrice(pizza.getPrice() + fulfillment.calculateFulfillmentCost());
+        System.out.println(pizza.getPrice() + " TL");
     }
 }
