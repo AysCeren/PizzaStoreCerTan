@@ -3,6 +3,8 @@ import Builder.PizzaOrderDirector;
 import Builder.StuffedCrustPizzaBuilder;
 import Builder.ThinCrustPizzaBuilder;
 import Facade.StoreFacade;
+import ObserverPublisher.CustomerSubscriber;
+import ObserverPublisher.ISubscriber;
 
 import java.util.Scanner;
 
@@ -10,14 +12,35 @@ import java.util.Scanner;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) throws InterruptedException {
+        Scanner sc = new Scanner(System.in);
         //Open the store with *Facade Pattern*
         StoreFacade storeFacade = new StoreFacade(); // We instantiate the storeFacade, first.
         storeFacade.openStore(); //storeFacade will handle coupling with other class so main class will have loose coupling with classes (lighting, cleaning etc.)
         //Subscription and User Management with *Publisher Pattern*
+        System.out.println(
+                "\n==========================================================\n" +
+                        "             CER-TAN PIZZA: MEMBERSHIP CHECK              \n" +
+                        "==========================================================\n" +
+                        "Welcome to the CerTan Pizza Store!\n" +
+                        "\n" +
+                        "Do you have a CerTan ID Card to access our exclusive\n" +
+                        "promotions, discount campaigns, and member-only sales?\n" +
+                        "----------------------------------------------------------"
+        );
+        System.out.print("Please enter your ID or type 0 if you are not a member: ");
+        int memberID = sc.nextInt();
+        if(memberID == 0) {
+            System.out.print("Please enter your username to become member: ");
+            sc.nextLine();
+            String username = sc.nextLine();
+            int custID = (int)(Math.random()*100);
+            CustomerSubscriber customer = new CustomerSubscriber();
+            customer.setCustomerID(custID);
+            customer.setUserName(username);
+        }
         //Take Order and Build the Pizza
         int pizzaNumber;
         int crustNumber;
-        Scanner sc = new Scanner(System.in);
         PizzaOrderDirector pizzaOrderDirector = new PizzaOrderDirector();
         PizzaBuilder pizzaBuilder = null;
         System.out.print(

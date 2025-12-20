@@ -1,6 +1,6 @@
 package Facade;
 
-import Facade.Subsystem.CleaningService;
+import Facade.Subsystem.CleaningSystem;
 import Facade.Subsystem.InventorySystem;
 import Facade.Subsystem.LightingSystem;
 import Facade.Subsystem.PersonnelManagerSystem;
@@ -9,7 +9,7 @@ public class StoreFacade {
         private LightingSystem lighting = new LightingSystem();
         private InventorySystem inventory = new InventorySystem();
         private PersonnelManagerSystem personnel = new PersonnelManagerSystem();
-        private CleaningService cleaning = new CleaningService();
+        private CleaningSystem cleaning = new CleaningSystem();
 
         public void openStore() {
             System.out.println("--- Starting Store Opening Sequence ---");
