@@ -26,6 +26,6 @@ public class CustomerSubscriber implements ISubscriber {
 
     @Override
     public void upcomingMessage(String message) {
-        System.out.println(message);
+        System.out.println(userName + " with id: " + CustomerID + " received a message: " + message);
     }
 }

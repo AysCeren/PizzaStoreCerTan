@@ -4,7 +4,9 @@ import Builder.StuffedCrustPizzaBuilder;
 import Builder.ThinCrustPizzaBuilder;
 import Facade.StoreFacade;
 import ObserverPublisher.CustomerSubscriber;
+import ObserverPublisher.IPublisher;
 import ObserverPublisher.ISubscriber;
+import ObserverPublisher.PromotionPublisher;
 
 import java.util.Scanner;
 
@@ -16,6 +18,7 @@ public class Main {
         //Open the store with *Facade Pattern*
         StoreFacade storeFacade = new StoreFacade(); // We instantiate the storeFacade, first.
         storeFacade.openStore(); //storeFacade will handle coupling with other class so main class will have loose coupling with classes (lighting, cleaning etc.)
+
         //Subscription and User Management with *Publisher Pattern*
         System.out.println(
                 "\n==========================================================\n" +
@@ -27,17 +30,35 @@ public class Main {
                         "promotions, discount campaigns, and member-only sales?\n" +
                         "----------------------------------------------------------"
         );
-        System.out.print("Please enter your ID or type 0 if you are not a member: ");
+        //Setup the Publisher and the mock data
+        PromotionPublisher publisher = new PromotionPublisher();
+        ISubscriber ali = new CustomerSubscriber("Ali", 105);
+        ISubscriber ayse = new CustomerSubscriber("Ayşe", 202);
+        ISubscriber veli = new CustomerSubscriber("Veli", 305);
+        publisher.subscribe(ali);
+        publisher.subscribe(ayse);
+        System.out.println(publisher.getSubscribers());
+        System.out.print("Please enter your ID: ");
         int memberID = sc.nextInt();
-        if(memberID == 0) {
-            System.out.print("Please enter your username to become member: ");
-            sc.nextLine();
-            String username = sc.nextLine();
-            int custID = (int)(Math.random()*100);
-            CustomerSubscriber customer = new CustomerSubscriber();
-            customer.setCustomerID(custID);
-            customer.setUserName(username);
+
+        if (publisher.checkSubscriber(memberID)) {
+            System.out.println("Welcome back, Member! You will receive our new alerts.");
+        } else {
+            System.out.println("ID not found.");
+            System.out.print("Would you like to subscribe? (Y/N): ");
+            String choice = sc.next();
+
+            if (choice.equalsIgnoreCase("Y")) {
+                System.out.print("Enter your name: ");
+                String name = sc.next();
+                // Create new Observer and subscribe
+                ISubscriber newMember = new CustomerSubscriber(name, memberID);
+                publisher.subscribe(newMember);
+                System.out.println("Subscription successful! You are now part of CerTan Pizza.");
+            }
         }
+        publisher.publish("CerTan Pizza: 20% Discount on all thin crust pizzas today!");
+        Thread.sleep(1000);
         //Take Order and Build the Pizza
         int pizzaNumber;
         int crustNumber;
