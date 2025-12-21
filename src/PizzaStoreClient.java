@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
+public class PizzaStoreClient {
     public static void main(String[] args) throws InterruptedException {
         Scanner sc = new Scanner(System.in);
         //Open the store with *Facade Pattern*
@@ -29,6 +29,7 @@ public class Main {
         );
         //Setup the Publisher and the mock data
         PromotionPublisher publisher = new PromotionPublisher();
+        //We have done this to show who is taking the message who is not.
         ISubscriber ali = new CustomerSubscriber("Ali", 105);
         ISubscriber ayse = new CustomerSubscriber("Ayşe", 202);
         ISubscriber veli = new CustomerSubscriber("Veli", 305);
@@ -80,7 +81,7 @@ public class Main {
         }
         // 3. Fancy Confirmation Output
         System.out.println("\n-------------------------------------------");
-        System.out.println("✨ FULFILLMENT SECURED ✨");
+        System.out.println(" FULFILLMENT SECURED ");
         System.out.println("Mode:    " + fulfillment.getFullDescription());
         System.out.println("Surcharge: " + fulfillment.calculateFulfillmentCost() + " TL");
         System.out.println("-------------------------------------------\n");
@@ -140,7 +141,8 @@ public class Main {
                 pizzaOrderDirector.makeBaconPizza(pizzaBuilder);
                 break;
         }
-        PizzaOrder pizza = pizzaBuilder.getResult();
+        PizzaOrder pizza = pizzaBuilder.getResult(); //no new keywords
+
         System.out.print("Total Cost --> For Pizza " + pizza.getPrice() + " TL Surcharge: "+fulfillment.calculateFulfillmentCost() + " TL = ");
         pizza.setPrice(pizza.getPrice() + fulfillment.calculateFulfillmentCost());
         System.out.println(pizza.getPrice() + " TL");
