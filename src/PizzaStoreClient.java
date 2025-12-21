@@ -162,15 +162,16 @@ public class PizzaStoreClient {
         // --- 5. MEMENTO PATTERN ---
         // Allows saving and restoring state. 
         // We save the 'Full' state here because the demo below will destructively undo the pizza.
+        Thread.sleep(2000);
         System.out.println("Do you wanna know how your pizza got prepared?");
+        System.out.print("Before you leave, comment us on Google Maps!");
         System.out.println("We are clean and transparent: press enter and let's start!!!");
-        
+        Thread.sleep(1000);
         Memento fullPizzaState = pizza.save();
 
         // Demonstrates Memento by undoing steps to show history
         pizzaOrderDirector.showTransparencyProcess(pizza);
-        
-        
+
         // Restore the pizza to its full state so the Manager Report is correct
         pizza.undo(fullPizzaState);
         

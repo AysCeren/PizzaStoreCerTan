@@ -33,12 +33,13 @@ public class PizzaOrder {
     }
 
     // --- Memento Methods ---
-    public Memento save() {
+    public Memento save() throws InterruptedException {
         System.out.println("[Originator] Saving a snapshot of the pizza...");
+        Thread.sleep(500);
         return new Memento(crustType, sauce, cheese, toppings, price);
     }
 
-    public void undo(Memento memento) {
+    public void undo(Memento memento) throws InterruptedException {
         // Uses getCrust() to match your existing Memento.java
         this.crustType = memento.getCrust(); 
         this.sauce = memento.getSauce();
@@ -46,6 +47,7 @@ public class PizzaOrder {
         this.toppings = new ArrayList<>(memento.getToppings());
         this.price = memento.getPrice();
         System.out.println("[Originator] Restored to previous state: " + this.toString());
+        Thread.sleep(500);
     }
 
     @Override

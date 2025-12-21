@@ -7,7 +7,7 @@ import java.util.Stack;
 public class PizzaCaretaker {
     private Stack<Memento> history = new Stack<>();
 
-    public void saveState(PizzaOrder pizza) {
+    public void saveState(PizzaOrder pizza) throws InterruptedException {
         history.push(pizza.save());
     }
 

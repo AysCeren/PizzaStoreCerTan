@@ -31,14 +31,16 @@ public class PizzaStoreFacade {
         orderCollection.addOrder(order);
     }
 
-    public void printManagerReport() {
+    public void printManagerReport() throws InterruptedException {
         System.out.println("\n====== MANAGER REPORT ======");
 
         // Iterate over Material Array
         System.out.println("--- Material Inventory ---");
+        Thread.sleep(1000);
         IIterator<String> matIterator = materialCollection.createIterator();
         while (matIterator.hasNext()) {
             System.out.println(" - " + matIterator.next());
+            Thread.sleep(500);
         }
 
         // Iterate over Order ArrayList
@@ -46,6 +48,7 @@ public class PizzaStoreFacade {
         IIterator<PizzaOrder> orderIterator = orderCollection.createIterator();
         while (orderIterator.hasNext()) {
             System.out.println(" - " + orderIterator.next());
+            Thread.sleep(500);
         }
         System.out.println("============================");
     }
