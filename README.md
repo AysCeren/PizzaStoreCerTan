@@ -78,3 +78,7 @@ A comprehensive Java console application demonstrating the implementation and in
 * <b>`ObserverPublisher/`</b>: Subscription and messaging system.
 * <b>`Iterator/`</b>: Iteration package for Collections, also providing mock data to show different usages.
 * <b>`Main.java`</b>: The Client class that coordinates all design patterns.
+
+## UML Class Diagram
+<img width="16384" height="6040" alt="417 Project UML Class Diagram" src="https://github.com/user-attachments/assets/297358bf-f9aa-43cd-ad8a-1ed85ff0285e" />
+
